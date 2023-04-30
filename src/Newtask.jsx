@@ -4,7 +4,7 @@ import { Calendar, Unlock, PlusSquare, Maximize2, Loader, Disc, X, Plus } from '
 import './Newtask/Newtask.css'
 import NewtaskButton from './Newtask/NewtaskButton'
 import avatar from './assets/profile.png'
-import { parseUser, parseHashtag, parseMail, parseLink } from './Utils/Parsers'
+import parser from './Utils/Parser'
 
 function Newtask() {
 
@@ -18,11 +18,9 @@ function Newtask() {
   }
 
   function handleInputChange(e) {
+    console.log(inputRef.current.innerHTML)
     const content = inputRef.current.textContent 
-    inputRef.current.innerHTML = parseUser(inputRef.current.innerHTML)
-    inputRef.current.innerHTML = parseHashtag(inputRef.current.innerHTML)
-    inputRef.current.innerHTML = parseMail(inputRef.current.innerHTML)
-    inputRef.current.innerHTML = parseLink(inputRef.current.innerHTML)
+    inputRef.current.innerHTML = parser(inputRef.current.innerHTML, 'newtask')
     window.getSelection().selectAllChildren(inputRef.current)
     window.getSelection().collapseToEnd()
     if(content) {
@@ -62,7 +60,7 @@ function Newtask() {
         <img 
           src={avatar} 
           alt='Adrian Avatar' 
-          className={`w-6 h-6 rounded-full ${enabled?'':'opacity-50'} ${editable?'':'invisible'}`} 
+          className={`w-9 h-9 rounded-full ${enabled?'':'opacity-50'} ${editable?'':'invisible'}`} 
         />
       </div>
       <div className='flex justify-between bg-directbg p-2'>

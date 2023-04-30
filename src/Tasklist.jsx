@@ -1,16 +1,16 @@
 import Task from './Tasklist/Task'
+import parser from './Utils/Parser'
+import './Tasklist/Tasklist.css'
+
 const datamock = [
   {id: 1, text: 'hola @pepe que tal la #tarea'},
   {id: 2, text: 'completar el test de www.laweb.io y enviarlo por elcorreo@mail.com'}
 ]
 
 function Tasklist() {
-  function textParser(text) {
-    return text
-  }
   const list = datamock.map(obj => {
-      const content = textParser(obj.text)
-      return <Task content={content}/>
+      const content = parser(obj.text, 'tasklist')
+      return <Task content={content} keyId={obj.id}/>
     }
   )
   return (

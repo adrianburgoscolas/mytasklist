@@ -1,0 +1,25 @@
+#attasklist {
+  color: #07A873;
+  background-color: #ADF0D9;
+}
+
+#hashtasklist {
+  color: #702EE6;
+  background-color: #DBC7FF;
+}
+
+#mailtasklist {
+  color: #F58E0A;
+  background-color: #FFE6C7;
+}
+
+#linktasklist {
+  color: #5AACFF;
+  background-color: #D6EBFF;
+  
+}
+
+#attasklist, #hashtasklist, #mailtasklist, #linktasklist {
+  padding: 0.1rem 0.5rem;
+  border-radius: 99999px;
+}
