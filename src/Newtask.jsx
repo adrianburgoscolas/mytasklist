@@ -4,6 +4,7 @@ import { Calendar, Unlock, PlusSquare, Maximize2, Loader, Disc, X, Plus } from '
 import './Newtask/Newtask.css'
 import NewtaskButton from './Newtask/NewtaskButton'
 import avatar from './assets/profile.png'
+import { parseUser, parseHashtag, parseMail, parseLink } from './Utils/Parsers'
 
 function Newtask() {
 
@@ -18,18 +19,16 @@ function Newtask() {
 
   function handleInputChange(e) {
     const content = inputRef.current.textContent 
-    console.log(inputRef.current.innerHTML, content)
-    inputRef.current.innerHTML = inputRef.current.innerHTML.replaceAll(/(?<!\w)(<span id="at">)?(@\w*)(<\/span>)?(\w+)/ig, '<span id="at">$2$4</span>')
-    inputRef.current.innerHTML = inputRef.current.innerHTML.replaceAll(/(?<!\w)(<span id="hash">)?(#\w*)(<\/span>)?(\w+)/ig, '<span id="hash">$2$4</span>')
-    inputRef.current.innerHTML = inputRef.current.innerHTML.replaceAll(/(?<!\w)(<span id="mail">)?(\w+@\w+\.\w+)(<\/span>)?(\w+)/ig, '<span id="mail">$2$4</span>')
-    inputRef.current.innerHTML = inputRef.current.innerHTML.replaceAll(/(?<!\w)(<span id="link">)?(\w+\.\w+\.\w+)(<\/span>)?(\w+)/ig, '<span id="link">$2$4</span>')
+    inputRef.current.innerHTML = parseUser(inputRef.current.innerHTML)
+    inputRef.current.innerHTML = parseHashtag(inputRef.current.innerHTML)
+    inputRef.current.innerHTML = parseMail(inputRef.current.innerHTML)
+    inputRef.current.innerHTML = parseLink(inputRef.current.innerHTML)
     window.getSelection().selectAllChildren(inputRef.current)
     window.getSelection().collapseToEnd()
     if(content) {
       setEnabled(true)
     } else {
       setEnabled(false)
-      inputRef.current.innerHTML = ''
       inputRef.current.innerHTML = ''
     }
   }
