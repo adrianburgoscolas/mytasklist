@@ -1,4 +1,20 @@
-[contentEditable=true]:empty::before {
+[contentEditable=true]:empty::after {
   content: attr(placeholder);
   color: #8A94A6;
+}
+
+#at {
+  color: #07A873;
+}
+
+#hash {
+  color: #702EE6;
+}
+
+#mail {
+  color: #F58E0A;
+}
+
+#link {
+  color: #5AACFF;
 }
