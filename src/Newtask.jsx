@@ -1,16 +1,31 @@
-import { useState, useRef } from 'react'
-import { Calendar, Unlock, PlusSquare, Maximize2, Loader, Disc, X, Plus } from 'react-feather'
+import { useState, useRef, useEffect } from 'react'
+import { Calendar, Unlock, PlusSquare, Save, Maximize2, Loader, Disc, X, Plus } from 'react-feather'
 
 import './Newtask/Newtask.css'
 import NewtaskButton from './Newtask/NewtaskButton'
 import avatar from './assets/profile.png'
 import parser from './Utils/Parser'
 
-function Newtask() {
+function Newtask(props) {
+
+  useEffect(() => {
+    if(props?.extEditable){
+      inputRef.current.innerHTML = parser(props.content, 'newtask')
+      window.getSelection().selectAllChildren(inputRef.current)
+      window.getSelection().collapseToEnd()
+    }
+    if(inputRef.current.textContent) {
+      setEnabled(true)
+    } else {
+      setEnabled(false)
+      inputRef.current.innerHTML = ''
+    }
+  },[])
 
   const [editable, setEditable] = useState(false)
   const [enabled, setEnabled] = useState(false)
   const inputRef = useRef(null)
+
 
   function handleInputClick(e) {
     setEditable(true)
@@ -18,7 +33,6 @@ function Newtask() {
   }
 
   function handleInputChange(e) {
-    console.log(inputRef.current.innerHTML)
     const content = inputRef.current.textContent 
     inputRef.current.innerHTML = parser(inputRef.current.innerHTML, 'newtask')
     window.getSelection().selectAllChildren(inputRef.current)
@@ -35,21 +49,24 @@ function Newtask() {
     if(enabled) {
       //implement: save to db
     }
+    if(props?.extEditable) {
+      props.setEdit(false)
+    }
     setEditable(false)
     setEnabled(false)
     inputRef.current.innerHTML = ''
   }
 
   return (
-    <section className={`p-0 rounded-lg divide-slate-100 overflow-hidden ${editable?'shadow-md divide-y':'h-8'}`}>
+    <section className={`max-w-7xl bg-white rounded-lg divide-slate-100 overflow-hidden ${editable | props?.extEditable?'shadow-md divide-y':'h-8'}`}>
       <div 
         onClick={handleInputClick} 
         id='textbox' 
         name='textbox' 
         role='textbox' 
-        className={`rounded-t-lg border-x border-t px-2 pt-2 flex gap-1 pb-6 ${editable?'border-slate-100':'border-white'}`}
+        className={`rounded-t-lg border-x border-t px-2 pt-2 flex gap-1 pb-6 ${editable | props?.extEditable?'border-slate-100':'border-white'}`}
       >
-        <PlusSquare color='#007FFF' /> 
+        {!props?.extEditable && <PlusSquare color='#007FFF' />} 
         <div 
           contentEditable
           className='w-full h-full outline-none'
@@ -60,7 +77,7 @@ function Newtask() {
         <img 
           src={avatar} 
           alt='Adrian Avatar' 
-          className={`w-9 h-9 rounded-full ${enabled?'':'opacity-50'} ${editable?'':'invisible'}`} 
+          className={`w-9 h-9 rounded-full ${enabled?'':'opacity-50'} ${editable | props?.extEditable?'':'invisible'}`} 
         />
       </div>
       <div className='flex justify-between bg-directbg p-2'>
@@ -75,7 +92,7 @@ function Newtask() {
         </div>
         <div className='flex gap-1' onClick={handleButton}>
           <NewtaskButton tit={'Cancel'} Icon={enabled?Plus:X} style={{col:"#04142F", text: 'text-opencol',backgr: "bg-openbg"}} />
-          <NewtaskButton tit={enabled?'Add':'Ok'} Icon={enabled?Plus:X} style={{col:"#FFFFFF", text: 'text-white',backgr: "bg-primary"}} />
+          <NewtaskButton tit={enabled?'Add':'Ok'} Icon={enabled?props?.extEditable?Save:Plus:X} style={{col:"#FFFFFF", text: 'text-white',backgr: "bg-primary"}} />
         </div>
       </div>
     </section>

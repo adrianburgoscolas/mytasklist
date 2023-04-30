@@ -14,7 +14,7 @@ function Tasklist() {
     }
   )
   return (
-    <section className='p-2'>
+    <section className='max-w-7xl p-2'>
       <ul>
         {list}
       </ul>
