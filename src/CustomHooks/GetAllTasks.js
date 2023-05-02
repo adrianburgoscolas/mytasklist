@@ -5,7 +5,8 @@ function GetAllTasks() {
   return useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
-      const res = await axios.get(`${process.env.API_URL}/api/alltask` || '/api/alltask')
+      const url = `${process.env.TASKLIST_API_URL}/api/alltask` || '/api/alltask'
+      const res = await axios.get()
       return res.data
     },
   })
