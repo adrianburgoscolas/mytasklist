@@ -1,7 +1,7 @@
 import CircularProgress from '@mui/joy/CircularProgress';
 
 import Task from './Tasklist/Task'
-import GetAllTasks from './CustomHooks/GetAllTasks'
+import GetAllTasks from './Queries/GetAllTasks'
 
 //todo: Suspence list component
 function Tasklist() {
