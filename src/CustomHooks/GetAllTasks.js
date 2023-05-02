@@ -5,8 +5,7 @@ function GetAllTasks() {
   return useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
-      const url = `${process.env.TASKLIST_API_URL}/api/alltask` || '/api/alltask'
-      const res = await axios.get()
+      const res = await axios.get('https://task-list-backend-2x2u.onrender.com/api/alltask')
       return res.data
     },
   })
