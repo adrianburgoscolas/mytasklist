@@ -55,6 +55,7 @@ function Newtask(props) {
   function handleDeleteButton() {
     if(enabled) {
       if(props?.taskId) {
+        //implement: update tast in db
         deleteTask.mutate(props.taskId)
         props.setEdit(false)
       } 
@@ -76,9 +77,11 @@ function Newtask(props) {
   function handleAcceptButton() {
     if(enabled) {
       if(props?.extEditable) {
+        //implement: update tast in db
         updateTask.mutate({id: props.taskId, text: inputRef.current.innerText})
         props.setEdit(false)
       } else {
+        //implement: save task to db
         addTask.mutate(inputRef.current.textContent)
         
       }

@@ -10,7 +10,7 @@ function Task({content, taskId}) {
   const [editContent, setEditContent] = useState(null)
 
   function handleEdit() {
-    setEditContent(ref.current.textContent)
+    setEditContent(ref?.current?.textContent)
     setEdit(true)
   }
 
