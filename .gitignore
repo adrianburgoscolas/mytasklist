@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 build
+coverage
+.nyc_output
 
 # Editor directories and files
 .vscode/*

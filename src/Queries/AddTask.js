@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-function DeleteTask() {
+function AddTask() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (id) => {
-      const res = await axios.delete('/api/deltask', {data: {id} })
+    mutationFn: async (text) => {
+      const res = await axios.post('https://task-list-backend-2x2u.onrender.com/api/addtask', {text})
       return res.data
     },
     onSettled: () => {
@@ -15,6 +15,4 @@ function DeleteTask() {
   })
 }
 
-export default DeleteTask
-
-
+export default AddTask

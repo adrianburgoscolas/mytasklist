@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-function AddTask() {
+function UpdateTask() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (text) => {
-      const res = await axios.post('/api/addtask', {text})
+    mutationFn: async (data) => {
+      const res = await axios.patch('https://task-list-backend-2x2u.onrender.com/api/updatetask', {id: data.id, text: data.text})
       return res.data
     },
     onSettled: () => {
@@ -15,4 +15,6 @@ function AddTask() {
   })
 }
 
-export default AddTask
+export default UpdateTask
+
+

@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
 import { Trash2, Calendar, Unlock, PlusSquare, Save, Maximize2, Loader, Disc, X, Plus } from 'react-feather'
 
-import AddTask from './CustomHooks/AddTask'
+import AddTask from './Queries/AddTask'
 import './Newtask/Newtask.css'
 import NewtaskButton from './Newtask/NewtaskButton'
 import avatar from './assets/profile.png'
-import DeleteTask from './CustomHooks/DeleteTask'
+import DeleteTask from './Queries/DeleteTask'
 import parser from './Utils/Parser'
-import UpdateTask from './CustomHooks/UpdateTask'
+import UpdateTask from './Queries/UpdateTask'
 
 function Newtask(props) {
 
