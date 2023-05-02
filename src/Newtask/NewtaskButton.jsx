@@ -1,7 +1,7 @@
-function NewtaskButton({Icon, tit, style}) {
+function NewtaskButton({clickHandler, Icon, tit, style}) {
 
   return (
-    <button className={`${style.backgr}  ${tit === 'Cancel'?'hidden xl:block':''} px-2 xl:px-4 ${tit !== 'Open'?'xl:border':''} py-2 rounded flex items-center`}>
+    <button onClick={clickHandler} className={`${style.backgr}  ${tit === 'Cancel'?'hidden xl:block':''} px-2 xl:px-4 ${tit !== 'Open'?'xl:border':''} py-2 rounded flex items-center`}>
       <span className={`xl:mr-2 ${tit === 'Ok' || tit === 'Cancel' || tit === 'Add' ?'xl:hidden':''}`}>
         <Icon color={style.col}/>
       </span>

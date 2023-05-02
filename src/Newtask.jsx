@@ -1,12 +1,19 @@
 import { useState, useRef, useEffect } from 'react'
-import { Calendar, Unlock, PlusSquare, Save, Maximize2, Loader, Disc, X, Plus } from 'react-feather'
+import { Trash2, Calendar, Unlock, PlusSquare, Save, Maximize2, Loader, Disc, X, Plus } from 'react-feather'
 
+import AddTask from './CustomHooks/AddTask'
 import './Newtask/Newtask.css'
 import NewtaskButton from './Newtask/NewtaskButton'
 import avatar from './assets/profile.png'
+import DeleteTask from './CustomHooks/DeleteTask'
 import parser from './Utils/Parser'
+import UpdateTask from './CustomHooks/UpdateTask'
 
 function Newtask(props) {
+
+  const addTask = AddTask()
+  const deleteTask = DeleteTask()
+  const updateTask = UpdateTask()
 
   useEffect(() => {
     if(props?.extEditable){
@@ -45,12 +52,39 @@ function Newtask(props) {
     }
   }
 
-  function handleButton() {
+  function handleDeleteButton() {
     if(enabled) {
-      //implement: save to db
+      if(props?.taskId) {
+        //implement: update tast in db
+        deleteTask.mutate(props.taskId)
+        props.setEdit(false)
+      } 
     }
-    if(props?.extEditable) {
-      props.setEdit(false)
+    setEditable(false)
+    setEnabled(false)
+    inputRef.current.innerHTML = ''
+  }
+
+  function handleCancelButton() {
+    if(props?.setEdit) {
+      props?.setEdit(false)
+    }
+    setEditable(false)
+    setEnabled(false)
+    inputRef.current.innerHTML = ''
+  }
+
+  function handleAcceptButton() {
+    if(enabled) {
+      if(props?.extEditable) {
+        //implement: update tast in db
+        updateTask.mutate({id: props.taskId, text: inputRef.current.innerText})
+        props.setEdit(false)
+      } else {
+        //implement: save task to db
+        addTask.mutate(inputRef.current.textContent)
+        
+      }
     }
     setEditable(false)
     setEnabled(false)
@@ -88,11 +122,15 @@ function Newtask(props) {
             <NewtaskButton tit={'Public'} Icon={Unlock} style={{col: '#8A94A6', text: 'text-directcol',backgr:'bg-directbg'}} />
             <NewtaskButton tit={'Highlight'} Icon={Loader} style={{col: '#8A94A6', text: 'text-directcol', backgr:'bg-directbg'}} />
             <NewtaskButton tit={'Estimation'} Icon={Disc} style={{col: '#8A94A6', text: 'text-directcol', backgr:'bg-directbg'}} />
+            {
+              props?.extEditable && 
+              <NewtaskButton clickHandler={handleDeleteButton} tit={'Delete'} Icon={Trash2} style={{col: '#8A94A6', text: 'text-directcol', backgr:'bg-directbg'}} />
+            }
           </div>
         </div>
-        <div className='flex gap-1' onClick={handleButton}>
-          <NewtaskButton tit={'Cancel'} Icon={enabled?Plus:X} style={{col:"#04142F", text: 'text-opencol',backgr: "bg-openbg"}} />
-          <NewtaskButton tit={enabled?'Add':'Ok'} Icon={enabled?props?.extEditable?Save:Plus:X} style={{col:"#FFFFFF", text: 'text-white',backgr: "bg-primary"}} />
+        <div className='flex gap-1' >
+          <NewtaskButton clickHandler={handleCancelButton} tit={'Cancel'} Icon={enabled?Plus:X} style={{col:"#04142F", text: 'text-opencol',backgr: "bg-openbg"}} />
+          <NewtaskButton clickHandler={handleAcceptButton} tit={enabled?'Add':'Ok'} Icon={enabled?props?.extEditable?Save:Plus:X} style={{col:"#FFFFFF", text: 'text-white',backgr: "bg-primary"}} />
         </div>
       </div>
     </section>

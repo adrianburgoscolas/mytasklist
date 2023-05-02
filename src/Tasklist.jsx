@@ -1,22 +1,28 @@
+import CircularProgress from '@mui/joy/CircularProgress';
+
 import Task from './Tasklist/Task'
-import parser from './Utils/Parser'
-import './Tasklist/Tasklist.css'
+import GetAllTasks from './CustomHooks/GetAllTasks'
 
-const datamock = [
-  {id: 1, text: 'hola @pepe que tal la #tarea'},
-  {id: 2, text: 'completar el test de www.laweb.io y enviarlo por elcorreo@mail.com'}
-]
-
+//todo: Suspence list component
 function Tasklist() {
-  const list = datamock.map(obj => {
-      const content = parser(obj.text, 'tasklist')
-      return <Task content={content} keyId={obj.id}/>
-    }
-  )
+  
+  const { data, error, isLoading, isError } = GetAllTasks()
+
+  if (isLoading) {
+    return (
+      <div className='w-full mt-6 mx-auto text-center'>
+        <CircularProgress color='neutral' size='sm' className='m-auto' />
+      </div>
+    )
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
   return (
     <section className='max-w-7xl p-2'>
       <ul>
-        {list}
+        {data.payload.map(obj => <Task content={obj.text} key={obj._id} taskId={obj._id}/>)}
       </ul>
     </section>
   )
