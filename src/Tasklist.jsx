@@ -3,7 +3,6 @@ import CircularProgress from '@mui/joy/CircularProgress';
 import Task from './Tasklist/Task'
 import GetAllTasks from './Queries/GetAllTasks'
 
-//todo: Suspence list component
 function Tasklist() {
   
   const { data, error, isLoading, isError } = GetAllTasks()
