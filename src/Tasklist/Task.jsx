@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 
-import parser from '../Utils/Parser'
+import { parser } from '../Utils/Parser'
 import Newtask from '../Newtask'
 import './Task/Task.css'
 

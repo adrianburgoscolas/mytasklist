@@ -10,7 +10,7 @@ function Tasklist() {
   if (isLoading) {
     return (
       <div className='w-full mt-6 mx-auto text-center'>
-        <CircularProgress color='neutral' size='sm' className='m-auto' />
+        <CircularProgress size='sm' className='text-red-600 m-auto' />
       </div>
     )
   }

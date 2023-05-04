@@ -1,4 +1,4 @@
-[contentEditable=true]:empty::after {
+[contentEditable=true]:empty::before {
   content: attr(placeholder);
   color: #8A94A6;
 }

@@ -6,7 +6,7 @@ import './Newtask/Newtask.css'
 import NewtaskButton from './Newtask/NewtaskButton'
 import avatar from './assets/profile.png'
 import DeleteTask from './Queries/DeleteTask'
-import parser from './Utils/Parser'
+import { parser, shouldParse } from './Utils/Parser'
 import UpdateTask from './Queries/UpdateTask'
 
 function Newtask(props) {
@@ -40,11 +40,14 @@ function Newtask(props) {
   }
 
   function handleInputChange(e) {
-    const content = inputRef.current.textContent 
-    inputRef.current.innerHTML = parser(inputRef.current.innerHTML, 'newtask')
-    window.getSelection().selectAllChildren(inputRef.current)
-    window.getSelection().collapseToEnd()
-    if(content) {
+    const content = inputRef.current 
+    console.log(content.innerHTML)
+      if(shouldParse(content.innerHTML)) {
+      content.innerHTML = parser(content.innerHTML, 'newtask')
+      window.getSelection().selectAllChildren(content)
+      window.getSelection().collapseToEnd()
+      }
+    if(content.textContent) {
       setEnabled(true)
     } else {
       setEnabled(false)
@@ -99,7 +102,7 @@ function Newtask(props) {
       >
         {!props?.extEditable && <PlusSquare color='#007FFF' />} 
         <div 
-          contentEditable
+          contentEditable='true'
           className='w-full h-full outline-none'
           placeholder='Type to add new task'
           ref={inputRef}
