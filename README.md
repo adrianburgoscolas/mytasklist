@@ -5,7 +5,6 @@ This is the Frontend solution to the technical test - My Task List.
 ## Table of contents
 
 - [Overview](#overview)
-  - [Instructions](#Instructions)
   - [Screenshot](#screenshot)
   - [Links](#links)
 - [My process](#my-process)
